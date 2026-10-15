@@ -39,9 +39,9 @@ AbilityWar는 [능력자 전쟁 라이선스](https://github.com/DayBreak365/Abi
 
 이 포크의 정식 배포 파일은 [GitHub Releases](https://github.com/milkchan128/AbilityWars/releases)에서 내려받을 수 있습니다. 릴리스 버전은 원본 프로젝트와 별도로 `1.0.0`부터 관리합니다.
 
-[패치 노트](CHANGELOG.md) · [1.1.0 릴리스 노트 초안](docs/releases/v1.1.0.md) · [버전 및 릴리스 규칙](docs/RELEASING.md)
+[패치 노트](CHANGELOG.md) · [1.1.0 릴리스 노트](docs/releases/v1.1.0.md) · [버전 및 릴리스 규칙](docs/RELEASING.md)
 
-Purpur 지원은 `1.0.1`부터 적용됩니다. 기존 `1.0.0` 릴리스는 Paper만 지원하며, `1.1.0`은 현재 소스에서 빌드할 수 있습니다.
+Purpur 지원은 `1.0.1`부터 적용되며, 정식 배포에는 `1.1.0`부터 포함됩니다. 기존 `1.0.0` 릴리스는 Paper만 지원합니다.
 
 **시작 배너 및 자동 업데이트**
 
@@ -56,7 +56,7 @@ Purpur 지원은 `1.0.1`부터 적용됩니다. 기존 `1.0.0` 릴리스는 Pape
 | 마인크래프트 버전 | 권장 플러그인 버전 |
 |:----:|:----:|
 | Paper 1.21.11 | [이 포크의 최신 릴리스](https://github.com/milkchan128/AbilityWars/releases/latest) |
-| Purpur 1.21.11 | `1.0.1`부터 지원 ([빌드 및 릴리스 노트 초안](docs/releases/v1.1.0.md)) |
+| Purpur 1.21.11 | [이 포크의 최신 릴리스](https://github.com/milkchan128/AbilityWars/releases/latest) (`1.1.0` 이상) |
 | MC 1.20.4 | [최신 버전](https://github.com/DayBreak365/AbilityWar/releases/latest) |
 | MC 1.20 ~ 1.20.3 | 지원 X |
 | MC 1.19.x (Paper) | [최신 버전](https://github.com/DayBreak365/AbilityWar/releases/latest) |
