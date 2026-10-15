@@ -35,7 +35,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -109,6 +113,20 @@ public class AbilityWar extends JavaPlugin implements Provider, Listener {
 	public ForkUpdater getForkUpdater() {
 		if (forkUpdater == null) throw new IllegalStateException("포크 업데이트 기능이 아직 초기화되지 않았습니다.");
 		return forkUpdater;
+	}
+
+	@Override
+	public void onLoad() {
+		if (!ForkUpdater.isForkBuild()) return;
+		try (InputStream input = getResource("startup-banner.txt")) {
+			if (input == null) return;
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8))) {
+				String line;
+				while ((line = reader.readLine()) != null) getLogger().info(line.replace("${version}", getDescription().getVersion()));
+			}
+		} catch (IOException error) {
+			getLogger().warning("시작 배너를 읽지 못했습니다: " + error.getMessage());
+		}
 	}
 
 	@Override
