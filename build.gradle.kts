@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "kr.daybreak"
-version = "3.6.1-paper-1.21.11"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
