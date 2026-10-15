@@ -4,3 +4,5 @@
 - 릴리스·패치 노트와 발행 절차는 `docs/RELEASING.md`를 기준으로 관리하며, 정식 배포에는 Gradle 배포 JAR와 SHA-256 체크섬을 첨부한다.
 - `1.0.1`부터 Gradle 배포 JAR는 Paper·Purpur 1.21.11만 허용하며, Purpur는 기존 Paper 전용 능력·게임의 호환성을 위해 `ServerType.PAPER`로 분류한다.
 - `1.0.1`은 로컬 빌드와 릴리스 노트 초안까지 준비했으며 아직 원격 발행하지 않았다. 공개된 `v1.0.0`은 Paper 전용 배포로 유지한다.
+- `1.1.0`부터 로딩 시 `milkchan128/AbilityWars`의 새 정식 릴리스를 자동 다운로드하며, SHA-256·1.21.11 호환 검증과 기존 JAR 백업 후 서버 업데이트 폴더에 준비해 다음 시작 때 적용한다. 인게임 설치도 같은 경로를 사용한다.
+- `1.1.0`은 아직 미발행이며, 시작 배너는 devhub의 현재 `frontend/public/logo.webp`에서 만든 정적 `startup-banner.txt`를 사용한다.
