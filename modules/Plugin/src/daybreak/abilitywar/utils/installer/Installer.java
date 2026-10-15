@@ -66,20 +66,32 @@ public class Installer {
 	private final List<VersionObject> versions;
 	private final Map<String, VersionObject> versionCache = new HashMap<>();
 	private final Plugin plugin;
+	private final boolean fork = ForkUpdater.isForkBuild();
 
 	public Installer(String author, String repository, Plugin plugin) throws IOException, InterruptedException, ExecutionException {
 		this.plugin = plugin;
 
 		String result = "";
-		try (final BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("https://api.github.com/repos/" + author + "/" + repository + "/releases").openStream(), StandardCharsets.UTF_8))) {
+		final HttpURLConnection api = (HttpURLConnection) new URL("https://api.github.com/repos/" + author + "/" + repository + "/releases").openConnection();
+		api.setConnectTimeout(5000);
+		api.setReadTimeout(10000);
+		api.setRequestProperty("User-Agent", "AbilityWar/" + plugin.getDescription().getVersion());
+		try (final BufferedReader reader = new BufferedReader(new InputStreamReader(api.getInputStream(), StandardCharsets.UTF_8))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				result = result.concat(line);
 			}
-		}
+		} finally { api.disconnect(); }
 
 		final Map<ExecutorService, Future<VersionObject>> tasks = new LinkedHashMap<>();
 		for (JsonElement element : JsonParser.parseString(result).getAsJsonArray()) {
+			if (fork) {
+				JsonObject release = element.getAsJsonObject();
+				String tag = release.get("tag_name").getAsString();
+				if (release.get("draft").getAsBoolean() || release.get("prerelease").getAsBoolean()
+						|| ForkUpdater.findAsset(release, "AbilityWar-" + (tag.startsWith("v") ? tag.substring(1) : tag) + ".jar") == null
+						|| ForkUpdater.findAsset(release, "SHA256SUMS.txt") == null) continue;
+			}
 			final ExecutorService service = Executors.newSingleThreadExecutor();
 			tasks.put(service, service.submit(new Callable<VersionObject>() {
 				@Override
@@ -263,20 +275,24 @@ public class Installer {
 		private final long fileSize;
 		private final int downloadCount;
 		private final String[] updates;
+		private final JsonObject release;
 
 		private VersionObject(JsonObject json) throws IOException {
-			this.version = json.get("name").getAsString();
+			this.release = json;
 			this.prerelease = json.get("prerelease").getAsBoolean();
 			this.tag = json.get("tag_name").getAsString();
-			final JsonObject asset = json.get("assets").getAsJsonArray().get(0).getAsJsonObject();
+			this.version = fork ? (tag.startsWith("v") ? tag.substring(1) : tag) : json.get("name").getAsString();
+			final JsonObject asset = fork ? ForkUpdater.findAsset(json, "AbilityWar-" + version + ".jar") : json.get("assets").getAsJsonArray().get(0).getAsJsonObject();
 			this.downloadURL = new URL(asset.get("browser_download_url").getAsString());
-			{
+			if (fork) {
+				this.fileSize = asset.get("size").getAsLong();
+			} else {
 				final HttpURLConnection connection = (HttpURLConnection) downloadURL.openConnection();
 				this.fileSize = connection.getContentLengthLong();
 				connection.disconnect();
 			}
 			this.downloadCount = asset.get("download_count").getAsInt();
-			this.updates = json.get("body").getAsString().split("\\n");
+			this.updates = json.get("body").isJsonNull() ? new String[0] : json.get("body").getAsString().split("\\n");
 		}
 
 		public String getVersion() {
@@ -304,6 +320,11 @@ public class Installer {
 		}
 
 		public void install() {
+			if (fork) {
+				ForkUpdater updater = AbilityWar.getPlugin().getForkUpdater();
+				Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> updater.install(release));
+				return;
+			}
 			try {
 				Messager.sendConsoleMessage(Formatter.formatVersionInfo(this));
 				final File cacheFile = FileUtil.getFile("cache/update.jar");

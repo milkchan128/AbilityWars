@@ -26,6 +26,7 @@ import daybreak.abilitywar.utils.base.minecraft.server.ServerType;
 import daybreak.abilitywar.utils.base.minecraft.version.NMSVersion;
 import daybreak.abilitywar.utils.base.minecraft.version.ServerVersion;
 import daybreak.abilitywar.utils.installer.Installer;
+import daybreak.abilitywar.utils.installer.ForkUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -34,6 +35,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.io.File;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -69,6 +71,7 @@ public class AbilityWar extends JavaPlugin implements Provider, Listener {
 	}
 
 	private Installer installer = null;
+	private ForkUpdater forkUpdater;
 	private final Commands commands = new Commands(this);
 
 	public AbilityWar() {
@@ -79,7 +82,9 @@ public class AbilityWar extends JavaPlugin implements Provider, Listener {
 			public void run() {
 				Installer installer = null;
 				try {
-					installer = new Installer("Daybreak365", "AbilityWar", AbilityWar.this);
+					installer = ForkUpdater.isForkBuild()
+							? new Installer(ForkUpdater.AUTHOR, ForkUpdater.REPOSITORY, AbilityWar.this)
+							: new Installer("Daybreak365", "AbilityWar", AbilityWar.this);
 					Messager.sendConsoleMessage("버전 목록을 불러왔습니다.");
 				} catch (IOException | InterruptedException | ExecutionException ignore) {
 				}
@@ -99,6 +104,11 @@ public class AbilityWar extends JavaPlugin implements Provider, Listener {
 
 	public Commands getCommands() {
 		return commands;
+	}
+
+	public ForkUpdater getForkUpdater() {
+		if (forkUpdater == null) throw new IllegalStateException("포크 업데이트 기능이 아직 초기화되지 않았습니다.");
+		return forkUpdater;
 	}
 
 	@Override
@@ -147,6 +157,11 @@ public class AbilityWar extends JavaPlugin implements Provider, Listener {
 			}
 		});
 		Messager.sendConsoleMessage("플러그인이 활성화되었습니다. §8(§7" + ServerType.getServerType() + " " + ServerVersion.getName() + "§8)");
+		if (ForkUpdater.isForkBuild()) {
+			forkUpdater = new ForkUpdater(getDescription().getVersion(),
+					new File(getDataFolder().getParentFile(), getFile().getName()), Bukkit.getUpdateFolderFile(), getLogger());
+			Bukkit.getScheduler().runTaskAsynchronously(this, forkUpdater::checkForUpdate);
+		}
 		if (ServerType.getServerType() != ServerType.PAPER) {
 			Messager.sendConsoleMessage("Paper 서버 사용을 추천드립니다. " + (
 					ServerVersion.isAboveOrEqual(NMSVersion.v1_17_R1) ? "https://papermc.io/downloads" : "https://papermc.io/legacy"

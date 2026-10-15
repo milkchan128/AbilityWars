@@ -51,6 +51,7 @@ public final class PaperSmoke extends JavaPlugin {
         boolean passed = false;
         try {
             require(AbilityWar.getPlugin().isEnabled(), "AbilityWar did not enable");
+            require(AbilityWar.getPlugin().getForkUpdater() != null, "Fork updater did not initialize");
             require(ServerVersion.getName().equals("paper_1_21_11"), "Wrong compatibility adapter");
             require(ServerType.getServerType() == ServerType.PAPER, "Wrong Paper compatibility family");
             require(AbilityFactory.isRegistered(SwordMaster.class), "Paper-only ability missing");

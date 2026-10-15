@@ -2,6 +2,7 @@ package daybreak.abilitywar.game.manager.gui;
 
 import daybreak.abilitywar.utils.base.minecraft.item.builder.ItemBuilder;
 import daybreak.abilitywar.utils.installer.Installer;
+import daybreak.abilitywar.utils.installer.ForkUpdater;
 import daybreak.abilitywar.utils.installer.Installer.VersionObject;
 import daybreak.abilitywar.utils.library.MaterialX;
 import java.util.Arrays;
@@ -67,7 +68,7 @@ public class InstallGUI implements Listener {
 				final ItemMeta meta = stack.getItemMeta();
 				meta.setDisplayName("§b" + version.getVersion());
 				meta.setLore(Arrays.asList(
-						"§b» §f이 버전을 설치하려면 클릭하세요.",
+						ForkUpdater.isForkBuild() ? "§b» §f클릭하면 업데이트를 준비합니다. 다음 서버 시작 때 적용됩니다." : "§b» §f이 버전을 설치하려면 클릭하세요.",
 						"§b태그§f: " + version.getTag(),
 						"§b버전§f: " + (version.isPrerelease() ? "§3PRE-RELEASE§f " : "" + version.getVersion()),
 						"§b파일 크기§f: " + (version.getFileSize() / 1024) + "KB"));
