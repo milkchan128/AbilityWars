@@ -1,0 +1,2 @@
+- Paper 1.21.11 전용 배포는 Gradle Wrapper/paperweight와 JDK 21로 빌드하며, 기존 Maven 빌드는 구버전용으로 유지한다.
+- 신규 JAR는 Paper 1.21.11만 허용하므로 다른 1.21.x·Spigot·26.x 지원을 추가할 때는 버전 판별과 전용 호환 모듈을 함께 수정해야 한다.

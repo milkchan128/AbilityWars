@@ -2,7 +2,7 @@ name: AbilityWar
 main: daybreak.abilitywar.AbilityWar
 version: ${project.version}
 
-softdepend: [Skript]
+softdepend: [Skript, Essentials]
 
 commands:
   abilitywar:

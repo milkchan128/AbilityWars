@@ -16,7 +16,7 @@ public class Support {
 	public @interface Version {
 		NMSVersion min();
 
-		NMSVersion max() default NMSVersion.v1_20_R3;
+		NMSVersion max() default NMSVersion.paper_1_21_11;
 	}
 
 	@Retention(RetentionPolicy.RUNTIME)

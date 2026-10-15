@@ -14,9 +14,13 @@ public enum ServerType {
 		public static final ServerType INSTANCE;
 
 		static {
-			final String[] split = Bukkit.getVersion().split("-");
-			final String name = split[1].toUpperCase();
-			INSTANCE = Enums.getIfPresent(ServerType.class, name).or(name.equals("BUKKIT") ? CRAFTBUKKIT : UNKNOWN);
+			if (Bukkit.getName().equalsIgnoreCase("Paper")) {
+				INSTANCE = PAPER;
+			} else {
+				final String[] split = Bukkit.getVersion().split("-");
+				final String name = split.length > 1 ? split[1].toUpperCase(java.util.Locale.ROOT) : "UNKNOWN";
+				INSTANCE = Enums.getIfPresent(ServerType.class, name).or(name.equals("BUKKIT") ? CRAFTBUKKIT : UNKNOWN);
+			}
 		}
 	}
 

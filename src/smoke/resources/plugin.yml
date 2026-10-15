@@ -1,0 +1,5 @@
+name: AbilityWarPaperSmoke
+main: daybreak.abilitywar.test.PaperSmoke
+version: '1.0'
+api-version: '1.21.11'
+depend: [AbilityWar]

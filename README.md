@@ -14,6 +14,16 @@ AbilityWar는 [능력자 전쟁 라이선스](https://github.com/DayBreak365/Abi
 모두에게 알리고 싶은 참신한 코드를 작성했다면 Pull Request를 통해 플러그인에 기여해주세요.
 
 **🔧 Build**
+- **Paper 1.21.11 전용 빌드 (이 포크)**
+    - JDK 21을 설치하고 `JAVA_HOME`을 JDK 설치 폴더로 설정하세요.
+    - Windows에서는 프로젝트 루트에서 `.\gradlew.bat clean build`를 실행하세요. Linux/macOS에서는 `./gradlew clean build`를 사용하세요.
+    - 배포 파일은 `build/libs/AbilityWar-3.6.1-paper-1.21.11.jar`입니다. `-plain.jar`는 의존성이 포함되지 않은 파일이므로 서버에 설치하지 마세요.
+    - 이 배포 파일은 **Paper 1.21.11만 지원**합니다. 다른 1.21.x 버전, Spigot, Folia 및 26.x는 지원 대상이 아닙니다.
+    - 아래 Maven 빌드와 구버전 의존성 준비는 Paper 전용 빌드에 필요하지 않습니다. 첫 Gradle 빌드는 개발용 서버 코드와 의존성을 내려받으므로 시간이 걸릴 수 있습니다.
+    - 서버를 중지한 상태에서 기존 AbilityWar JAR를 백업하고 새 파일을 서버의 `plugins` 폴더에 넣으세요. AbilityWar JAR는 하나만 두세요.
+    - 서버 폴더에서 `java "-Dfile.encoding=UTF-8" "-Duser.timezone=Asia/Seoul" -Xms1G -Xmx2G -jar paper-1.21.11-132.jar --nogui`로 실행할 수 있습니다. Paper 파일명이 다르면 실제 파일명으로 바꾸세요.
+    - 인게임 업데이트 기능은 원본 프로젝트의 릴리스를 받습니다. 이 포크는 위 빌드 파일을 수동으로 교체해 업데이트하세요.
+    - 자동 테스트는 버전 제한을 확인합니다. `.\gradlew.bat smokeJar`로 만든 `AbilityWar-PaperSmoke.jar`는 **별도 테스트 서버에서만** 사용하세요. 주요 호환 기능과 일반 능력의 생성·정리를 검사한 뒤 서버를 자동 종료합니다.
 - **Maven**
     - AbilityWar 디렉토리에서 `mvn clean package` 명령을 실행하세요. 빌드된 플러그인 파일은 `target` 폴더에서 찾을 수 있습니다.
     - AbilityWar를 로컬 Maven 레포지터리에 설치하려면 `mvn clean install` 명령을 실행하세요.
@@ -31,6 +41,7 @@ AbilityWar는 [능력자 전쟁 라이선스](https://github.com/DayBreak365/Abi
 
 | 마인크래프트 버전 | 권장 플러그인 버전 |
 |:----:|:----:|
+| Paper 1.21.11 | 이 포크의 Gradle 빌드 파일 사용 |
 | MC 1.20.4 | [최신 버전](https://github.com/DayBreak365/AbilityWar/releases/latest) |
 | MC 1.20 ~ 1.20.3 | 지원 X |
 | MC 1.19.x (Paper) | [최신 버전](https://github.com/DayBreak365/AbilityWar/releases/latest) |
