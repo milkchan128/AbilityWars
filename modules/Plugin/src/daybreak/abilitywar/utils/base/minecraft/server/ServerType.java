@@ -1,6 +1,7 @@
 package daybreak.abilitywar.utils.base.minecraft.server;
 
 import com.google.common.base.Enums;
+import daybreak.abilitywar.utils.base.minecraft.version.NMSVersion;
 import org.bukkit.Bukkit;
 
 public enum ServerType {
@@ -14,7 +15,8 @@ public enum ServerType {
 		public static final ServerType INSTANCE;
 
 		static {
-			if (Bukkit.getName().equalsIgnoreCase("Paper")) {
+			if (NMSVersion.isSupportedServerName(Bukkit.getName())) {
+				// Purpur도 Paper 전용 능력과 같은 호환 경로를 사용합니다.
 				INSTANCE = PAPER;
 			} else {
 				final String[] split = Bukkit.getVersion().split("-");

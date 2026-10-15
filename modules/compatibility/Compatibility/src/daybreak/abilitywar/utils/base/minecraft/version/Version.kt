@@ -38,6 +38,10 @@ enum class NMSVersion(override val version: Int, override val release: Int) : IV
 
 	companion object {
 		@JvmStatic
+		fun isSupportedServerName(serverName: String): Boolean =
+			serverName.equals("Paper", ignoreCase = true) || serverName.equals("Purpur", ignoreCase = true)
+
+		@JvmStatic
 		fun resolve(serverClass: String, bukkitVersion: String, paper: Boolean, paperBuild: Boolean): NMSVersion {
 			if (paperBuild) {
 				return if (paper && bukkitVersion.substringBefore('-') == "1.21.11") paper_1_21_11 else UNSUPPORTED
@@ -53,7 +57,7 @@ class ServerVersion private constructor() {
 		private val logger = Logger.getLogger(ServerVersion::class.java.name)
 
 		private val paperBuild = ServerVersion::class.java.getResource("/abilitywar-paper.properties") != null
-		private val paper = Bukkit.getName().equals("Paper", ignoreCase = true) && try {
+		private val paper = NMSVersion.isSupportedServerName(Bukkit.getName()) && try {
 			Class.forName("io.papermc.paper.configuration.GlobalConfiguration")
 			true
 		} catch (ignored: ClassNotFoundException) { false }
@@ -96,7 +100,7 @@ class ServerVersion private constructor() {
 				}
 				true
 			} else {
-				logger.log(Level.SEVERE, if (paperBuild) "이 빌드는 Paper 1.21.11만 지원합니다." else "플러그인이 지원하지 않는 버전을 이용하고 있습니다.")
+				logger.log(Level.SEVERE, if (paperBuild) "이 빌드는 Paper와 Purpur 1.21.11만 지원합니다." else "플러그인이 지원하지 않는 버전을 이용하고 있습니다.")
 				Bukkit.getPluginManager().disablePlugin(plugin)
 				false
 			}

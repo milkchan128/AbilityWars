@@ -4,6 +4,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VersionTest {
+    @Test void acceptsOnlyPaperAndPurpurBrands() {
+        for (String brand : new String[]{"Paper", "Purpur", "paper", "PURPUR"}) {
+            assertTrue(NMSVersion.isSupportedServerName(brand), brand);
+            assertEquals(NMSVersion.paper_1_21_11, NMSVersion.resolve("org.bukkit.craftbukkit.CraftServer",
+                    "1.21.11-R0.1-SNAPSHOT", NMSVersion.isSupportedServerName(brand), true), brand);
+        }
+        for (String brand : new String[]{"Spigot", "CraftBukkit", "Bukkit", "Folia", "Pufferfish", "Unknown", "", "PaperFork", "PurpurFork"}) {
+            assertFalse(NMSVersion.isSupportedServerName(brand), brand);
+            assertEquals(NMSVersion.UNSUPPORTED, NMSVersion.resolve("org.bukkit.craftbukkit.CraftServer",
+                    "1.21.11-R0.1-SNAPSHOT", NMSVersion.isSupportedServerName(brand), true), brand);
+        }
+    }
+
     private NMSVersion paper(String version) {
         return NMSVersion.resolve("org.bukkit.craftbukkit.CraftServer", version + "-R0.1-SNAPSHOT", true, true);
     }

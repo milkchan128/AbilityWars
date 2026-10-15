@@ -3,6 +3,7 @@ package daybreak.abilitywar.test;
 import daybreak.abilitywar.AbilityWar;
 import daybreak.abilitywar.ability.AbilityBase;
 import daybreak.abilitywar.ability.AbilityFactory;
+import daybreak.abilitywar.ability.list.SwordMaster;
 import daybreak.abilitywar.game.list.standard.StandardGame;
 import daybreak.abilitywar.game.manager.AbilityList;
 import daybreak.abilitywar.utils.base.color.RGB;
@@ -11,6 +12,7 @@ import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import daybreak.abilitywar.utils.base.minecraft.nms.*;
 import daybreak.abilitywar.utils.base.minecraft.nms.paper_1_21_11.PlayerVisibility;
 import daybreak.abilitywar.utils.base.minecraft.version.ServerVersion;
+import daybreak.abilitywar.utils.base.minecraft.server.ServerType;
 import daybreak.abilitywar.utils.library.MaterialX;
 import daybreak.abilitywar.utils.library.ParticleLib;
 import daybreak.abilitywar.utils.library.PotionEffects;
@@ -50,6 +52,8 @@ public final class PaperSmoke extends JavaPlugin {
         try {
             require(AbilityWar.getPlugin().isEnabled(), "AbilityWar did not enable");
             require(ServerVersion.getName().equals("paper_1_21_11"), "Wrong compatibility adapter");
+            require(ServerType.getServerType() == ServerType.PAPER, "Wrong Paper compatibility family");
+            require(AbilityFactory.isRegistered(SwordMaster.class), "Paper-only ability missing");
             World world = Bukkit.getWorlds().getFirst();
             Location location = world.getSpawnLocation().add(0, 3, 0);
             location.getChunk().load();
@@ -139,7 +143,7 @@ public final class PaperSmoke extends JavaPlugin {
             require(NMS.isInvisible(player), "Visibility hide");
             visibility.show();
             require(!NMS.isInvisible(player), "Visibility restore");
-            getLogger().info("PAPER_SMOKE_PASS abilities=" + count);
+            getLogger().info("PAPER_SMOKE_PASS abilities=" + count + " server=" + Bukkit.getName());
             passed = true;
         } catch (Throwable error) {
             getLogger().log(java.util.logging.Level.SEVERE, "PAPER_SMOKE_FAIL", error);
