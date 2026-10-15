@@ -169,10 +169,10 @@ public class PenetrationArrow extends AbilityBase {
 					startReload();
 					return;
 				}
-				if (!getPlayer().getGameMode().equals(GameMode.CREATIVE) && (!e.getBow().hasItemMeta() || !e.getBow().getItemMeta().hasEnchant(Enchantment.ARROW_INFINITE))) {
+				if (!getPlayer().getGameMode().equals(GameMode.CREATIVE) && (!e.getBow().hasItemMeta() || !e.getBow().getItemMeta().hasEnchant(EnchantLib.ARROW_INFINITE.getEnchantment()))) {
 					ItemLib.removeItem(getPlayer().getInventory(), Material.ARROW, 1);
 				}
-				ammo.poll().launchArrow((Arrow) e.getProjectile(), e.getBow().getEnchantmentLevel(Enchantment.ARROW_DAMAGE));
+				ammo.poll().launchArrow((Arrow) e.getProjectile(), e.getBow().getEnchantmentLevel(EnchantLib.ARROW_DAMAGE.getEnchantment()));
 				actionbarChannel.update(ammo.toString());
 				if (!ammo.hasAmmo()) {
 					startReload();

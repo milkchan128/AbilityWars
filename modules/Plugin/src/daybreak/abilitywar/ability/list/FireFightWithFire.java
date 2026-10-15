@@ -17,7 +17,7 @@ import daybreak.abilitywar.config.enums.CooldownDecrease;
 import daybreak.abilitywar.game.AbstractGame.Participant;
 import daybreak.abilitywar.utils.base.Formatter;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -64,7 +64,7 @@ public class FireFightWithFire extends AbilityBase implements ActiveHandler {
 	private void onEntityDamage(EntityDamageEvent e) {
 		if (e.getCause().equals(DamageCause.FIRE) || e.getCause().equals(DamageCause.FIRE_TICK)) {
 			if (!getPlayer().isDead()) {
-				getPlayer().setHealth(Math.min(getPlayer().getHealth() + e.getFinalDamage(), getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				getPlayer().setHealth(Math.min(getPlayer().getHealth() + e.getFinalDamage(), getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			}
 			e.setDamage(0);
 		}

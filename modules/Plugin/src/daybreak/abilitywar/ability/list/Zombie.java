@@ -22,9 +22,9 @@ import daybreak.abilitywar.utils.base.random.Random;
 import daybreak.abilitywar.utils.library.MaterialX;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.enchantments.Enchantment;
+import daybreak.abilitywar.utils.library.item.EnchantLib;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -129,7 +129,7 @@ public class Zombie extends AbilityBase implements TargetHandler {
 					zombie.getEquipment().setHelmet(Skulls.createCustomSkull("f30026f3f14eda13f96070e2bb501d7b919169a6d1582f4121633b37798aead"));
 				}
 				zombie.setBaby(false);
-				zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.65);
+				zombie.getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED).setBaseValue(0.65);
 				if (random.nextInt(5) == 0) {
 					Material material = Material.AIR;
 					switch(random.nextInt(4)) {
@@ -140,7 +140,7 @@ public class Zombie extends AbilityBase implements TargetHandler {
 						default: material = MaterialX.IRON_SWORD.getMaterial(); break;
 					}
 					ItemStack itemStack = new ItemStack(material, 1);
-					if (random.nextBoolean()) itemStack.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, random.nextInt(5));
+					if (random.nextBoolean()) itemStack.addUnsafeEnchantment(EnchantLib.DAMAGE_ALL.getEnchantment(), random.nextInt(5));
 					zombie.getEquipment().setItemInMainHand(itemStack);
 				}
 				zombies.add(zombie);
@@ -155,7 +155,7 @@ public class Zombie extends AbilityBase implements TargetHandler {
 			for (org.bukkit.entity.Zombie zombie : zombies) {
 				if (ServerVersion.getVersion() >= 10) zombie.setInvulnerable(true);
 				zombie.setFireTicks(0);
-				final AttributeInstance movement = zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
+				final AttributeInstance movement = zombie.getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED);
 				if (movement.getValue() > 0.3) {
 					movement.setBaseValue(Math.max(0.3, movement.getValue() - 0.001));
 				}

@@ -109,14 +109,14 @@ public class DoubleSniper extends Synergy {
 		if (getPlayer().equals(e.getEntity()) && e.getProjectile() instanceof Arrow) {
 			e.setCancelled(true);
 			if (reload == null) {
-				if (!getPlayer().getGameMode().equals(GameMode.CREATIVE) && (!e.getBow().hasItemMeta() || !e.getBow().getItemMeta().hasEnchant(Enchantment.ARROW_INFINITE))) {
+				if (!getPlayer().getGameMode().equals(GameMode.CREATIVE) && (!e.getBow().hasItemMeta() || !e.getBow().getItemMeta().hasEnchant(EnchantLib.ARROW_INFINITE.getEnchantment()))) {
 					ItemLib.removeItem(getPlayer().getInventory(), Material.ARROW, 1);
 				}
 				Arrow arrow = (Arrow) e.getProjectile();
 				new AbilityTimer(repeat) {
 					@Override
 					protected void run(int count) {
-						new Bullet(getPlayer(), arrow.getLocation(), arrow.getVelocity(), e.getBow().getEnchantmentLevel(Enchantment.ARROW_DAMAGE), BULLET_COLOR).start();
+						new Bullet(getPlayer(), arrow.getLocation(), arrow.getVelocity(), e.getBow().getEnchantmentLevel(EnchantLib.ARROW_DAMAGE.getEnchantment()), BULLET_COLOR).start();
 						SoundLib.ENTITY_GENERIC_EXPLODE.playSound(getPlayer().getLocation(), 7, 1.75f);
 					}
 				}.setPeriod(TimeUnit.TICKS, 1).start();

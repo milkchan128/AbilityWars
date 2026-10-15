@@ -24,7 +24,7 @@ import daybreak.abilitywar.utils.library.SoundLib;
 import kotlin.ranges.RangesKt;
 import org.bukkit.*;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -208,7 +208,7 @@ public class SoulEncroach extends AbilityBase implements ActiveHandler {
 	}.setPeriod(TimeUnit.TICKS, 3).register();
 
 	private double getDamage() {
-			return lastVictim == null ? 0.0 : Math.max(1, (33 * (1 - (lastVictim.getHealth() / lastVictim.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()))) * (1 + (killCount * 0.15)));
+			return lastVictim == null ? 0.0 : Math.max(1, (33 * (1 - (lastVictim.getHealth() / lastVictim.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()))) * (1 + (killCount * 0.15)));
 	}
 
 	private final Duration skillTimer = new Duration(60) {
@@ -270,7 +270,7 @@ public class SoulEncroach extends AbilityBase implements ActiveHandler {
 						SoundLib.BASS_DRUM.playInstrument(getPlayer(), Note.natural(0, Tone.A));
 					}
 				}.setPeriod(TimeUnit.TICKS, 2).start();
-				gainHealth((getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() - getPlayer().getHealth()) / 2.0);
+				gainHealth((getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue() - getPlayer().getHealth()) / 2.0);
 				Player nearest = LocationUtil.getNearestEntity(Player.class, getPlayer().getLocation(), predicate.and(new Predicate<Entity>() {
 					private final Entity criterion = lastVictim;
 
@@ -334,7 +334,7 @@ public class SoulEncroach extends AbilityBase implements ActiveHandler {
 		final EntityRegainHealthEvent event = new EntityRegainHealthEvent(getPlayer(), amount, RegainReason.CUSTOM);
 		Bukkit.getPluginManager().callEvent(event);
 		if (!event.isCancelled() && !getPlayer().isDead()) {
-			getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + event.getAmount(), 0, getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+			getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + event.getAmount(), 0, getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 		}
 	}
 

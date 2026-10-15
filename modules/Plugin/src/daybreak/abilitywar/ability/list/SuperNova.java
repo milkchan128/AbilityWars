@@ -20,7 +20,7 @@ import daybreak.abilitywar.utils.base.minecraft.damage.Damages;
 import daybreak.abilitywar.utils.library.ParticleLib;
 import daybreak.abilitywar.utils.library.SoundLib;
 import org.bukkit.Location;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -91,7 +91,7 @@ public class SuperNova extends AbilityBase {
 			}.setPeriod(TimeUnit.TICKS, 1).start();
 			for (Player player : LocationUtil.getNearbyEntities(Player.class, center, size, size, predicate)) {
 				player.setNoDamageTicks(0);
-				Damages.damageExplosion(player, getPlayer(), (float) (player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 1.6));
+				Damages.damageExplosion(player, getPlayer(), (float) (player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue() * 1.6));
 			}
 			new SimpleTimer(TaskType.REVERSE, 10) {
 				@Override

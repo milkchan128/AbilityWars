@@ -16,7 +16,7 @@ import daybreak.abilitywar.utils.base.minecraft.entity.health.event.PlayerSetHea
 import daybreak.abilitywar.utils.base.minecraft.nms.IWorldBorder;
 import daybreak.abilitywar.utils.base.minecraft.nms.NMS;
 import daybreak.abilitywar.utils.library.PotionEffects;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -66,7 +66,7 @@ public class SurvivalInstinct extends AbilityBase {
 
 	private void ability() {
 		invincibility.start();
-		getPlayer().setHealth(Math.min(6, getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+		getPlayer().setHealth(Math.min(6, getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 		NMS.broadcastEntityEffect(getPlayer(), (byte) 2);
 		NMS.broadcastEntityEffect(getPlayer(), (byte) 35);
 		final Vector playerLocation = getPlayer().getLocation().toVector();

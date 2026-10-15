@@ -67,7 +67,7 @@ public interface INMS {
 	SteeringDirection getSteeringDirection(LivingEntity livingEntity);
 
 	default SkullMeta setOwningPlayer(final SkullMeta skullMeta, final String name) {
-		skullMeta.setOwningPlayer(new FakePlayer(name));
+		skullMeta.setOwner(name);
 		return skullMeta;
 	}
 

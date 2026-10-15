@@ -12,7 +12,7 @@ import daybreak.abilitywar.utils.base.Formatter;
 import daybreak.abilitywar.utils.base.minecraft.nms.NMS;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Arrow;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -203,7 +203,7 @@ public class Lazyness extends AbilityBase implements ActiveHandler {
 		@Override
 		protected void onEnd() {
 			if (!getPlayer().isDead()) {
-				getPlayer().setHealth(Math.max(0, Math.min(getPlayer().getHealth() + health, getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue())));
+				getPlayer().setHealth(Math.max(0, Math.min(getPlayer().getHealth() + health, getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue())));
 			}
 			channel.unregister();
 		}

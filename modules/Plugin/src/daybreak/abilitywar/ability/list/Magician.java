@@ -16,7 +16,7 @@ import daybreak.abilitywar.utils.library.ParticleLib;
 import daybreak.abilitywar.utils.library.SoundLib;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attributable;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
@@ -89,7 +89,7 @@ public class Magician extends AbilityBase {
 						locationMap.put(damageable, damageable.getLocation());
 						if (!damageable.equals(getPlayer())) {
 							if (LocationUtil.isInCircle(center, damageable.getLocation(), 5)) {
-								damageable.damage((damageable instanceof Attributable ? ((Attributable) damageable).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() : 0) * damage, getPlayer());
+								damageable.damage((damageable instanceof Attributable ? ((Attributable) damageable).getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue() : 0) * damage, getPlayer());
 								if (damageable instanceof Player) {
 									SoundLib.ENTITY_ILLUSIONER_CAST_SPELL.playSound((Player) damageable);
 								}

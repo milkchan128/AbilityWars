@@ -13,7 +13,7 @@ import daybreak.abilitywar.utils.base.concurrent.TimeUnit;
 import daybreak.abilitywar.utils.base.minecraft.nms.NMS;
 import java.lang.reflect.InvocationTargetException;
 import org.bukkit.Bukkit;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -32,7 +32,7 @@ public class Murderer extends AbstractMurderer {
 		@Override
 		protected void run(int count) {
 			if (Items.isMurdererSword(getPlayer().getInventory().getItemInMainHand())) {
-				getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.15);
+				getPlayer().getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED).setBaseValue(0.15);
 			}
 		}
 	}.setPeriod(TimeUnit.TICKS, 1).register();

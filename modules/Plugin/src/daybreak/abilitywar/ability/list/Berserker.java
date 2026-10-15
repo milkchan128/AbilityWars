@@ -27,7 +27,7 @@ import kotlin.ranges.RangesKt;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.boss.BarColor;
@@ -124,7 +124,7 @@ public class Berserker extends AbilityBase implements ActiveHandler {
     @SubscribeEvent(ignoreCancelled = true)
     private void onPlayerAttack(final EntityDamageByEntityEvent e) {
         if (getPlayer().equals(e.getDamager())) {
-            e.setDamage(e.getDamage() * (1 + ((1 - getPlayer().getHealth() / getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) * .35)));
+            e.setDamage(e.getDamage() * (1 + ((1 - getPlayer().getHealth() / getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()) * .35)));
         }
     }
 
@@ -157,7 +157,7 @@ public class Berserker extends AbilityBase implements ActiveHandler {
                 }
             });
             try {
-                getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).addModifier(SPEED_MODIFIER);
+                getPlayer().getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED).addModifier(SPEED_MODIFIER);
             } catch (IllegalArgumentException ignored) {
             }
         }
@@ -249,7 +249,7 @@ public class Berserker extends AbilityBase implements ActiveHandler {
             HandlerList.unregisterAll(this);
             Berserker.this.willOfIron = null;
             bossBar.removeAll();
-            getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).removeModifier(SPEED_MODIFIER);
+            getPlayer().getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED).removeModifier(SPEED_MODIFIER);
         }
 
         @Override

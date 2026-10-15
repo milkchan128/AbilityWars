@@ -1,6 +1,6 @@
 package daybreak.abilitywar.utils.base.minecraft.entity.health.event;
 
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
@@ -24,11 +24,11 @@ public class PlayerSetHealthEvent extends PlayerEvent implements Cancellable {
 
 	public PlayerSetHealthEvent(@NotNull final Player who, final double health) {
 		super(who);
-		this.health = Math.max(Math.min(health, player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()), 0.0);
+		this.health = Math.max(Math.min(health, player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()), 0.0);
 	}
 
 	public void setHealth(double health) {
-		this.health = Math.max(Math.min(health, player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()), 0.0);
+		this.health = Math.max(Math.min(health, player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()), 0.0);
 	}
 
 	public double getHealth() {

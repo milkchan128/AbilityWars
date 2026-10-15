@@ -58,6 +58,10 @@ public class EnchantLib {
 
 		private final Enchantment enchantment;
 
+		public Enchantment getEnchantment() {
+			return enchantment;
+		}
+
 		@SuppressWarnings("deprecation")
 		private SimpleEnchantment(String enchantName, String key, int version) {
 			if (ServerVersion.getVersion() >= version) {

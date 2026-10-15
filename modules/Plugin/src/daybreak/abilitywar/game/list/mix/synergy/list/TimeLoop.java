@@ -19,7 +19,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Note;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -28,7 +28,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 
 import java.text.DecimalFormat;
@@ -246,7 +245,7 @@ public class TimeLoop extends Synergy {
 		private void apply() {
 			player.teleport(location);
 			if (health > 0.0) {
-				player.setHealth(Math.min(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue(), health));
+				player.setHealth(Math.min(player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue(), health));
 			}
 			player.setFireTicks(fireTicks);
 			player.setFallDistance(fallDistance);

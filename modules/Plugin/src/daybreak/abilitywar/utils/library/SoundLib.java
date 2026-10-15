@@ -1,6 +1,5 @@
 package daybreak.abilitywar.utils.library;
 
-import com.google.common.base.Enums;
 import daybreak.abilitywar.utils.base.minecraft.nms.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -1020,13 +1019,18 @@ public class SoundLib {
 
 		private final Sound sound;
 
+		private static Sound resolve(String name) {
+			try { return Sound.valueOf(name); }
+			catch (IllegalArgumentException ignored) { return null; }
+		}
+
 		private SimpleSound(String name) {
-			this.sound = Enums.getIfPresent(Sound.class, name).orNull();
+			this.sound = resolve(name);
 		}
 
 		private SimpleSound(String... names) {
 			for (String name : names) {
-				final Sound sound = Enums.getIfPresent(Sound.class, name).orNull();
+				final Sound sound = resolve(name);
 				if (sound == null) continue;
 				this.sound = sound;
 				return;

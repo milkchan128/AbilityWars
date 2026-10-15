@@ -32,7 +32,7 @@ import daybreak.abilitywar.utils.library.SoundLib;
 import kotlin.ranges.RangesKt;
 import org.bukkit.*;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.boss.BarColor;
@@ -51,7 +51,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import daybreak.abilitywar.utils.library.PotionEffects;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
@@ -478,7 +478,7 @@ public abstract class AbstractSoul extends AbilityBase implements ActiveHandler 
             ParticleLib.CLOUD.spawnParticle(getPlayer().getLocation().add(0, 1, 0), .3, .3, .3, 3, 0);
             getPlayer().setFlySpeed(0f);
             getPlayer().setGameMode(GameMode.SPECTATOR);
-            getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 2, 100, false, false));
+            getPlayer().addPotionEffect(new PotionEffect(PotionEffects.SLOW.getEffectType(), 2, 100, false, false));
             final Location playerLocation = getPlayer().getLocation();
             getPlayer().setVelocity(VectorUtil.validateVector(targetLocation.toVector().subtract(playerLocation.toVector()).multiply(0.25)));
             if (playerLocation.distanceSquared(targetLocation) < 1) {
@@ -628,7 +628,7 @@ public abstract class AbstractSoul extends AbilityBase implements ActiveHandler 
                 SoundLib.ENTITY_VEX_AMBIENT.playSound(loc, .45f, pitch);
             }
             ParticleLib.CLOUD.spawnParticle(ghost.getLocation().add(0, 1, 0), .3, .3, .3, 30, 0);
-            Damages.damageMagic(target, getPlayer(), false, (float) (target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * .2));
+            Damages.damageMagic(target, getPlayer(), false, (float) (target.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue() * .2));
         }
 
         @Override

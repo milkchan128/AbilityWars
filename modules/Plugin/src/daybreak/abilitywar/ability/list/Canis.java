@@ -25,7 +25,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.boss.BarColor;
@@ -267,7 +267,7 @@ public class Canis extends AbilityBase implements ActiveHandler {
 				} else {
 					final Horse horse = Canis.this.horse;
 					if (horse == null) return;
-					horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).addModifier(slowModifier);
+					horse.getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED).addModifier(slowModifier);
 					new AbilityTimer(0) {
 						@Override
 						protected void onEnd() {
@@ -277,11 +277,11 @@ public class Canis extends AbilityBase implements ActiveHandler {
 						protected void onSilentEnd() {
 							final Horse horse = Canis.this.horse;
 							if (horse == null) return;
-							horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).removeModifier(slowModifier);
+							horse.getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED).removeModifier(slowModifier);
 						}
 					}.setInitialDelay(TimeUnit.SECONDS, 2).start();
 					for (Tier tier : Tier.values()) {
-						horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).removeModifier(tier.attributeModifier);
+						horse.getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED).removeModifier(tier.attributeModifier);
 					}
 					reset();
 				}
@@ -318,7 +318,7 @@ public class Canis extends AbilityBase implements ActiveHandler {
 				this.charge = maxCharge;
 				this.currentTier = tier;
 				bossBar.setColor(tier.barColor);
-				horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).addModifier(tier.attributeModifier);
+				horse.getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED).addModifier(tier.attributeModifier);
 				return true;
 			} else return false;
 		}
@@ -401,8 +401,8 @@ public class Canis extends AbilityBase implements ActiveHandler {
 		final Horse horse = getPlayer().getWorld().spawn(getPlayer().getLocation(), Horse.class);
 		horse.setStyle(horseStyle);
 		horse.setColor(horseColor);
-		horse.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(60);
-		horse.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(12);
+		horse.getAttribute(AttributeX.GENERIC_MAX_HEALTH).setBaseValue(60);
+		horse.getAttribute(AttributeX.GENERIC_ARMOR).setBaseValue(12);
 		horse.setHealth(60);
 		horse.setAdult();
 		horse.setOwner(getPlayer());
@@ -410,7 +410,7 @@ public class Canis extends AbilityBase implements ActiveHandler {
 		inventory.setArmor(armorItem);
 		inventory.setSaddle(saddleItem);
 		horse.setJumpStrength(.7);
-		horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(.225);
+		horse.getAttribute(AttributeX.GENERIC_MOVEMENT_SPEED).setBaseValue(.225);
 		horse.addPassenger(getPlayer());
 		this.horse = horse;
 		lanceCharge.start();

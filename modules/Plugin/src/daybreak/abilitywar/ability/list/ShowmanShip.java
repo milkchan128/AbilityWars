@@ -22,7 +22,7 @@ import daybreak.abilitywar.utils.library.PotionEffects;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
@@ -132,7 +132,7 @@ public class ShowmanShip extends AbilityBase {
 		final Entity entity = e.getEntity();
 		if (!getPlayer().equals(e.getEntity()) && getPlayer().equals(getDamager(e.getDamager())) && entity instanceof LivingEntity && getPoint(7, 7) >= 4) {
 			final LivingEntity livingEntity = (LivingEntity) entity;
-			if (livingEntity.getHealth() < (livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() / 3.3333333333) && !livingEntity.isDead() && Damages.canDamage(livingEntity, DamageCause.MAGIC, Double.MAX_VALUE)) {
+			if (livingEntity.getHealth() < (livingEntity.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue() / 3.3333333333) && !livingEntity.isDead() && Damages.canDamage(livingEntity, DamageCause.MAGIC, Double.MAX_VALUE)) {
 				execute(livingEntity, false);
 			}
 		}

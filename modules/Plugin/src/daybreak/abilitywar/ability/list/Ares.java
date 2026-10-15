@@ -20,7 +20,7 @@ import daybreak.abilitywar.utils.base.math.LocationUtil;
 import daybreak.abilitywar.utils.library.ParticleLib;
 import daybreak.abilitywar.utils.library.SoundLib;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -121,13 +121,13 @@ public class Ares extends AbilityBase implements ActiveHandler {
             getPlayer().setVelocity(getPlayer().getVelocity().add(getPlayer().getLocation().getDirection().multiply(0.25).setY(((count / 20.0) - .5) * .45)));
             for (LivingEntity livingEntity : LocationUtil.getNearbyEntities(LivingEntity.class, getPlayer().getLocation(), 6, 6, predicate)) {
                 if (!attacked.contains(livingEntity)) {
-                    livingEntity.damage((livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() / 100) * DAMAGE_CONFIG.getValue(), getPlayer());
+                    livingEntity.damage((livingEntity.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue() / 100) * DAMAGE_CONFIG.getValue(), getPlayer());
                     attacked.add(livingEntity);
                     SoundLib.BLOCK_ANVIL_LAND.playSound(getPlayer(), 0.5f, 1);
                     ParticleLib.SWEEP_ATTACK.spawnParticle(livingEntity.getEyeLocation(), 0, 0, 0, 1);
                 } else if (count % 2 == 0) {
                     livingEntity.setNoDamageTicks(0);
-                    livingEntity.damage(((livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() / 100) * DAMAGE_CONFIG.getValue()) / 9, getPlayer());
+                    livingEntity.damage(((livingEntity.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue() / 100) * DAMAGE_CONFIG.getValue()) / 9, getPlayer());
                     ParticleLib.SWEEP_ATTACK.spawnParticle(livingEntity.getEyeLocation(), 0, 0, 0, 1);
                 }
                 livingEntity.setVelocity(getPlayer().getLocation().toVector().subtract(livingEntity.getLocation().toVector()).multiply((getPlayer().getLocation().distanceSquared(livingEntity.getLocation()) / 36) * 0.75));

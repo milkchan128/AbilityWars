@@ -24,7 +24,7 @@ import kotlin.ranges.RangesKt;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
@@ -124,7 +124,7 @@ public class Flora extends AbilityBase implements ActiveHandler {
 			} else if (count % 10 == 0) {
 				for (Player player : LocationUtil.getEntitiesInCircle(Player.class, center, radius.radius, ONLY_PARTICIPANTS)) {
 					if (!player.isDead()) {
-						final double maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+						final double maxHealth = player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue();
 						if (player.getHealth() < maxHealth) {
 							final EntityRegainHealthEvent event = new EntityRegainHealthEvent(player, .3, RegainReason.CUSTOM);
 							Bukkit.getPluginManager().callEvent(event);

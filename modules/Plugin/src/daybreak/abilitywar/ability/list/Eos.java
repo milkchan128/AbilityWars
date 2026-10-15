@@ -24,7 +24,7 @@ import daybreak.abilitywar.utils.library.SoundLib;
 import daybreak.abilitywar.utils.library.item.EnchantLib;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -156,7 +156,7 @@ public class Eos extends AbilityBase implements ActiveHandler {
 			setPeriod(TimeUnit.TICKS, 1);
 			this.base = base;
 			this.angle = angle;
-			this.sharpness = getPlayer().getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.DAMAGE_ALL);
+			this.sharpness = getPlayer().getInventory().getItemInMainHand().getEnchantmentLevel(EnchantLib.DAMAGE_ALL.getEnchantment());
 			this.onDamage = onDamage;
 		}
 
@@ -178,7 +178,7 @@ public class Eos extends AbilityBase implements ActiveHandler {
 					boundingBox.setCenter(loc);
 					for (LivingEntity entity : LocationUtil.getConflictingEntities(LivingEntity.class, getPlayer().getWorld(), boundingBox, predicate)) {
 						entity.setNoDamageTicks(0);
-						Damages.damageMagic(entity, getPlayer(), false, (float) EnchantLib.getDamageWithSharpnessEnchantment(getPlayer().getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue(), sharpness));
+						Damages.damageMagic(entity, getPlayer(), false, (float) EnchantLib.getDamageWithSharpnessEnchantment(getPlayer().getAttribute(AttributeX.GENERIC_ATTACK_DAMAGE).getValue(), sharpness));
 						if (onDamage != null) onDamage.accept(entity);
 					}
 				}

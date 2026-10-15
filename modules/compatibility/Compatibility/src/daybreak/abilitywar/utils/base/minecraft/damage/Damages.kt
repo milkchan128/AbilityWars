@@ -6,7 +6,8 @@ import daybreak.abilitywar.utils.base.minecraft.version.VersionNotSupportedExcep
 import org.bukkit.Bukkit
 import org.bukkit.GameMode.ADVENTURE
 import org.bukkit.GameMode.SURVIVAL
-import org.bukkit.attribute.Attribute
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX
+import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
@@ -41,15 +42,16 @@ class Damages private constructor() {
 		fun getFinalDamage(victim: LivingEntity, damage: Double, flags: Int): Double {
             var damage = damage
             if (Flag.hasFlag(flags, Flag.ARMOR)) {
-                val armorStrength = victim.getAttribute(Attribute.GENERIC_ARMOR)?.value ?: .0
-                val armorToughness = victim.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS)?.value ?: .0
+                val armorStrength = victim.getAttribute(AttributeX.GENERIC_ARMOR)?.value ?: .0
+                val armorToughness = victim.getAttribute(AttributeX.GENERIC_ARMOR_TOUGHNESS)?.value ?: .0
                 damage -= damage - (damage * (1.0 - (armorStrength - damage / (2.0 + armorToughness / 4.0)).coerceIn(
                     armorStrength * .2,
                     20.0
                 ) / 25.0))
             }
             if (Flag.hasFlag(flags, Flag.RESISTANCE)) {
-                val resistance = victim.getPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)
+                val resistanceType = PotionEffectType.getByName("RESISTANCE") ?: PotionEffectType.getByName("DAMAGE_RESISTANCE")
+                val resistance = resistanceType?.let { victim.getPotionEffect(it) }
                 if (resistance != null) {
                     damage -= damage - damage * (25 - (resistance.amplifier + 1) * 5) / 25.0
                 }
@@ -58,7 +60,7 @@ class Damages private constructor() {
                 var protection = 0
                 victim.equipment?.armorContents?.forEach {
                     if (it != null) {
-                        protection += it.getEnchantmentLevel(Enchantment.PROTECTION_ENVIRONMENTAL)
+                        Enchantment.getByKey(NamespacedKey.minecraft("protection"))?.let { enchantment -> protection += it.getEnchantmentLevel(enchantment) }
                     }
                 }
                 if (protection > 0) {

@@ -31,7 +31,7 @@ import daybreak.abilitywar.utils.base.minecraft.nms.NMS;
 import daybreak.abilitywar.utils.library.SoundLib;
 import org.bukkit.*;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -653,7 +653,7 @@ public class BlindAbilityWar extends Game implements DefaultKitHandler, Winnable
 		FULL_HEAL {
 			@Override
 			protected void apply(Participant target, Participant castingTarget) {
-				target.getPlayer().setHealth(target.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+				target.getPlayer().setHealth(target.getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue());
 			}
 
 			@Override
@@ -664,7 +664,7 @@ public class BlindAbilityWar extends Game implements DefaultKitHandler, Winnable
 		THREE_HEART_HEAL {
 			@Override
 			protected void apply(Participant target, Participant castingTarget) {
-				target.getPlayer().setHealth(Math.min(target.getPlayer().getHealth() + 6, target.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				target.getPlayer().setHealth(Math.min(target.getPlayer().getHealth() + 6, target.getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			}
 
 			@Override
@@ -675,7 +675,7 @@ public class BlindAbilityWar extends Game implements DefaultKitHandler, Winnable
 		FOUR_HEART_HEAL {
 			@Override
 			protected void apply(Participant target, Participant castingTarget) {
-				target.getPlayer().setHealth(Math.min(target.getPlayer().getHealth() + 8, target.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				target.getPlayer().setHealth(Math.min(target.getPlayer().getHealth() + 8, target.getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			}
 
 			@Override

@@ -97,20 +97,72 @@ public class ParticleLib {
 	public static class SimpleParticle {
 
 		protected final Particle particle;
+		private final Object defaultData;
 
 		private SimpleParticle(String name) {
-			this.particle = Enums.getIfPresent(Particle.class, name).orNull();
+			Particle resolved = Enums.getIfPresent(Particle.class, name).orNull();
+			if (resolved == null) {
+				String modern;
+				switch (name) {
+					case "BARRIER": modern = "BLOCK_MARKER"; break;
+					case "BLOCK_CRACK": case "BLOCK_DUST": modern = "BLOCK"; break;
+					case "CRIT_MAGIC": modern = "ENCHANTED_HIT"; break;
+					case "DRIP_LAVA": modern = "DRIPPING_LAVA"; break;
+					case "DRIP_WATER": modern = "DRIPPING_WATER"; break;
+					case "ENCHANTMENT_TABLE": modern = "ENCHANT"; break;
+					case "EXPLOSION_HUGE": modern = "EXPLOSION_EMITTER"; break;
+					case "EXPLOSION_LARGE": modern = "EXPLOSION"; break;
+					case "EXPLOSION_NORMAL": case "SNOW_SHOVEL": modern = "POOF"; break;
+					case "FIREWORKS_SPARK": modern = "FIREWORK"; break;
+					case "ITEM_CRACK": modern = "ITEM"; break;
+					case "MOB_APPEARANCE": modern = "ELDER_GUARDIAN"; break;
+					case "REDSTONE": modern = "DUST"; break;
+					case "SLIME": modern = "ITEM_SLIME"; break;
+					case "SMOKE_LARGE": modern = "LARGE_SMOKE"; break;
+					case "SMOKE_NORMAL": modern = "SMOKE"; break;
+					case "SNOWBALL": modern = "ITEM_SNOWBALL"; break;
+					case "SPELL": modern = "EFFECT"; break;
+					case "SPELL_INSTANT": modern = "INSTANT_EFFECT"; break;
+					case "SPELL_MOB": case "SPELL_MOB_AMBIENT": modern = "ENTITY_EFFECT"; break;
+					case "SPELL_WITCH": modern = "WITCH"; break;
+					case "SUSPENDED": case "SUSPENDED_DEPTH": modern = "UNDERWATER"; break;
+					case "TOTEM": modern = "TOTEM_OF_UNDYING"; break;
+					case "TOWN_AURA": modern = "MYCELIUM"; break;
+					case "VILLAGER_ANGRY": modern = "ANGRY_VILLAGER"; break;
+					case "VILLAGER_HAPPY": modern = "HAPPY_VILLAGER"; break;
+					case "WATER_BUBBLE": modern = "BUBBLE"; break;
+					case "WATER_DROP": modern = "RAIN"; break;
+					case "WATER_SPLASH": modern = "SPLASH"; break;
+					case "WATER_WAKE": modern = "FISHING"; break;
+					default: modern = name;
+				}
+				resolved = Enums.getIfPresent(Particle.class, modern).orNull();
+			}
+			this.particle = resolved;
+			if (resolved != null && resolved.getDataType().equals(org.bukkit.Color.class)) {
+				this.defaultData = org.bukkit.Color.WHITE;
+			} else if (resolved != null && resolved.getDataType().equals(Float.class)) {
+				this.defaultData = 1f;
+			} else if (resolved != null && resolved.getDataType().getName().equals("org.bukkit.Particle$Spell")) {
+				try {
+					this.defaultData = resolved.getDataType().getConstructor(org.bukkit.Color.class, float.class).newInstance(org.bukkit.Color.WHITE, 1f);
+				} catch (ReflectiveOperationException e) { throw new ExceptionInInitializerError(e); }
+			} else if (resolved != null && resolved.name().equals("BLOCK_MARKER")) {
+				this.defaultData = MaterialX.BARRIER.getMaterial().createBlockData();
+			} else {
+				this.defaultData = null;
+			}
 		}
 
 		public <T> void spawnParticle(Player player, Location location, double offsetX, double offsetY, double offsetZ, int count, double extra, T customData) {
 			if (Configuration.Settings.getVisualEffect() && this.particle != null) {
-				player.spawnParticle(this.particle, location, count, offsetX, offsetY, offsetZ, extra, customData);
+				player.spawnParticle(this.particle, location, count, offsetX, offsetY, offsetZ, extra, customData == null ? defaultData : customData);
 			}
 		}
 
 		public <T> void spawnParticle(Player player, Location location, double offsetX, double offsetY, double offsetZ, int count, T customData) {
 			if (Configuration.Settings.getVisualEffect() && this.particle != null) {
-				player.spawnParticle(this.particle, location, count, offsetX, offsetY, offsetZ, customData);
+				player.spawnParticle(this.particle, location, count, offsetX, offsetY, offsetZ, customData == null ? defaultData : customData);
 			}
 		}
 
@@ -128,13 +180,13 @@ public class ParticleLib {
 
 		public <T> void spawnParticle(Location location, double offsetX, double offsetY, double offsetZ, int count, double extra, T customData) {
 			if (Configuration.Settings.getVisualEffect() && this.particle != null) {
-				location.getWorld().spawnParticle(this.particle, location, count, offsetX, offsetY, offsetZ, extra, customData);
+				location.getWorld().spawnParticle(this.particle, location, count, offsetX, offsetY, offsetZ, extra, customData == null ? defaultData : customData);
 			}
 		}
 
 		public <T> void spawnParticle(Location location, double offsetX, double offsetY, double offsetZ, int count, T customData) {
 			if (Configuration.Settings.getVisualEffect() && this.particle != null) {
-				location.getWorld().spawnParticle(this.particle, location, count, offsetX, offsetY, offsetZ, customData);
+				location.getWorld().spawnParticle(this.particle, location, count, offsetX, offsetY, offsetZ, customData == null ? defaultData : customData);
 			}
 		}
 
@@ -158,9 +210,12 @@ public class ParticleLib {
 		}
 
 		public void spawnParticle(Player player, Location location, RGB rgb) {
+			if (this.particle == null) return;
 			if (ServerVersion.getVersion() >= 13) {
 				if (this.particle.getDataType().equals(Particle.DustOptions.class)) {
 					this.spawnParticle(player, location, 0, 0, 0, 0, new Particle.DustOptions(rgb.getColor(), 1));
+				} else if (this.particle.getDataType().equals(org.bukkit.Color.class)) {
+					this.spawnParticle(player, location, 0, 0, 0, 1, rgb.getColor());
 				} else {
 					this.spawnParticle(player, location, rgb.getRed(), rgb.getGreen(), rgb.getBlue(), 0);
 				}
@@ -170,9 +225,12 @@ public class ParticleLib {
 		}
 
 		public void spawnParticle(Location location, RGB rgb) {
+			if (this.particle == null) return;
 			if (ServerVersion.getVersion() >= 13) {
 				if (this.particle.getDataType().equals(Particle.DustOptions.class)) {
 					this.spawnParticle(location, 0, 0, 0, 0, new Particle.DustOptions(rgb.getColor(), 1));
+				} else if (this.particle.getDataType().equals(org.bukkit.Color.class)) {
+					this.spawnParticle(location, 0, 0, 0, 1, rgb.getColor());
 				} else {
 					this.spawnParticle(location, rgb.getRed(), rgb.getGreen(), rgb.getBlue(), 0);
 				}

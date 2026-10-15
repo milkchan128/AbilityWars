@@ -25,7 +25,7 @@ import daybreak.abilitywar.utils.base.minecraft.nms.NMS;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -330,8 +330,8 @@ public abstract class Game extends AbstractGame implements AbilitySelect.Handler
 		}
 		if (Settings.isDefaultMaxHealthEnabled()) {
 			for (Participant participant : getParticipants()) {
-				participant.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(Settings.getDefaultMaxHealth());
-				participant.getPlayer().setHealth(participant.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+				participant.getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).setBaseValue(Settings.getDefaultMaxHealth());
+				participant.getPlayer().setHealth(participant.getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue());
 			}
 		}
 		if (Seasons.isFestive()) {

@@ -19,7 +19,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
@@ -101,7 +101,7 @@ public class FastRegeneration extends AbilityBase implements ActiveHandler {
 			if (count % 2 == 0) {
 				if (!player.isDead()) {
 					final double playerHealth = player.getHealth();
-					final double maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+					final double maxHealth = player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue();
 					if (playerHealth < maxHealth) {
 						final double gain;
 						if (playerHealth <= 5) {

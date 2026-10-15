@@ -25,7 +25,7 @@ import kotlin.ranges.RangesKt;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
@@ -122,7 +122,7 @@ public class Ghoul extends AbilityBase {
 		final Entity entity = e.getEntity();
 		if (getPlayer().equals(e.getDamager()) && entity instanceof LivingEntity) {
 			final LivingEntity livingEntity = (LivingEntity) entity;
-            if ((livingEntity.getHealth() / livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) <= healthScale) {
+            if ((livingEntity.getHealth() / livingEntity.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()) <= healthScale) {
                 e.setDamage(e.getDamage() * damageIncrease);
             }
 			final double amount = e.getFinalDamage() * 0.5;
@@ -130,7 +130,7 @@ public class Ghoul extends AbilityBase {
                 final EntityRegainHealthEvent event = new EntityRegainHealthEvent(getPlayer(), amount, RegainReason.CUSTOM);
                 Bukkit.getPluginManager().callEvent(event);
                 if (!event.isCancelled()) {
-                    getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + event.getAmount(), 0, getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+                    getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + event.getAmount(), 0, getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
                 }
                 new Cut(entity, state = !state).start();
                 ParticleLib.BLOCK_CRACK.spawnParticle(livingEntity.getEyeLocation(), .3f, .3f, .3f, 30, MaterialX.REDSTONE_BLOCK);

@@ -38,7 +38,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -216,7 +216,7 @@ public class Lorem extends AbilityBase {
 		if (exhaustion != null || bullet != null) return;
 		final ItemStack mainHand = getPlayer().getInventory().getItemInMainHand();
 		if (swords.contains(mainHand.getType())) {
-			new Bullet(getPlayer(), getPlayer().getLocation().clone().add(0, 1.5, 0), getPlayer().getLocation().getDirection().multiply(.4), mainHand.getEnchantmentLevel(Enchantment.DAMAGE_ALL), getPlayer().getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue(), COLOUR).start();
+			new Bullet(getPlayer(), getPlayer().getLocation().clone().add(0, 1.5, 0), getPlayer().getLocation().getDirection().multiply(.4), mainHand.getEnchantmentLevel(EnchantLib.DAMAGE_ALL.getEnchantment()), getPlayer().getAttribute(AttributeX.GENERIC_ATTACK_DAMAGE).getValue(), COLOUR).start();
 		}
 	}
 

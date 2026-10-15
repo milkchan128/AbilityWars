@@ -40,7 +40,7 @@ import daybreak.abilitywar.utils.base.random.Random;
 import daybreak.abilitywar.utils.library.SoundLib;
 import org.bukkit.*;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -660,7 +660,7 @@ public class MixBlindGame extends AbstractMix implements Winnable, Observer {
 		FULL_HEAL {
 			@Override
 			protected void apply(MixParticipant target, MixParticipant castingTarget) {
-				target.getPlayer().setHealth(target.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+				target.getPlayer().setHealth(target.getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue());
 			}
 
 			@Override
@@ -671,7 +671,7 @@ public class MixBlindGame extends AbstractMix implements Winnable, Observer {
 		THREE_HEART_HEAL {
 			@Override
 			protected void apply(MixParticipant target, MixParticipant castingTarget) {
-				target.getPlayer().setHealth(Math.min(target.getPlayer().getHealth() + 6, target.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				target.getPlayer().setHealth(Math.min(target.getPlayer().getHealth() + 6, target.getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			}
 
 			@Override
@@ -682,7 +682,7 @@ public class MixBlindGame extends AbstractMix implements Winnable, Observer {
 		FOUR_HEART_HEAL {
 			@Override
 			protected void apply(MixParticipant target, MixParticipant castingTarget) {
-				target.getPlayer().setHealth(Math.min(target.getPlayer().getHealth() + 8, target.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				target.getPlayer().setHealth(Math.min(target.getPlayer().getHealth() + 8, target.getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			}
 
 			@Override

@@ -31,7 +31,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -280,7 +280,7 @@ public class Developer extends AbilityBase implements ActiveHandler, TargetHandl
                 final EntityRegainHealthEvent event = new EntityRegainHealthEvent(getPlayer(), 4 + players.size(), RegainReason.CUSTOM);
                 Bukkit.getPluginManager().callEvent(event);
                 if (!event.isCancelled()) {
-                    getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + event.getAmount(), 0, getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+                    getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + event.getAmount(), 0, getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
                 }
                 SoundLib.BLOCK_END_PORTAL_SPAWN.playSound(getPlayer(), 1, 2);
                 SoundLib.BLOCK_END_PORTAL_SPAWN.playSound(getPlayer(), 1, 1);

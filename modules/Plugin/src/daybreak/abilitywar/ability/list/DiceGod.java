@@ -17,7 +17,7 @@ import daybreak.abilitywar.utils.base.Formatter;
 import daybreak.abilitywar.utils.base.random.Random;
 import daybreak.abilitywar.utils.library.PotionEffects;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.jetbrains.annotations.NotNull;
@@ -130,7 +130,7 @@ public class DiceGod extends AbilityBase implements ActiveHandler {
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
 		if (random.nextInt(6) == 0) {
 			if (!getPlayer().isDead()) {
-				getPlayer().setHealth(Math.min(getPlayer().getHealth() + e.getFinalDamage(), getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				getPlayer().setHealth(Math.min(getPlayer().getHealth() + e.getFinalDamage(), getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			}
 			e.setDamage(0);
 		}

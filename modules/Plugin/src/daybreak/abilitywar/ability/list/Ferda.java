@@ -25,7 +25,7 @@ import kotlin.ranges.RangesKt;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -208,18 +208,18 @@ public class Ferda extends AbilityBase implements ActiveHandler {
 	}
 
 	private void regainHealth(final LivingEntity livingEntity, final double amount) {
-		livingEntity.setHealth(RangesKt.coerceIn(livingEntity.getHealth() + amount, 0, livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+		livingEntity.setHealth(RangesKt.coerceIn(livingEntity.getHealth() + amount, 0, livingEntity.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 	}
 
 	private boolean regainHealth(final Player player, final double amount) {
 		if (getPlayer().equals(player)) {
-			getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + amount, 0, getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+			getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + amount, 0, getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			return true;
 		} else {
 			final EntityRegainHealthEvent event = new EntityRegainHealthEvent(player, amount, RegainReason.CUSTOM);
 			Bukkit.getPluginManager().callEvent(event);
 			if (!event.isCancelled()) {
-				player.setHealth(RangesKt.coerceIn(player.getHealth() + event.getAmount(), 0, player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				player.setHealth(RangesKt.coerceIn(player.getHealth() + event.getAmount(), 0, player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 				return true;
 			}
 		}

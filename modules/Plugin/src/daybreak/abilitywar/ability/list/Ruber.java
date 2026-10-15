@@ -29,7 +29,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -330,7 +330,7 @@ public class Ruber extends AbilityBase implements ActiveHandler {
 		@Override
 		protected void onEnd() {
 			if (getPlayer().isDead()) return;
-			getPlayer().setHealth(Math.min(getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue(), Math.max(1, getPlayer().getHealth() + amount)));
+			getPlayer().setHealth(Math.min(getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue(), Math.max(1, getPlayer().getHealth() + amount)));
 			if (damage) {
 				if (strengthen) {
 					SoundLib.ENTITY_PLAYER_BREATH.playSound(getPlayer(), 100f, .7757f);

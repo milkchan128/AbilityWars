@@ -17,7 +17,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.enchantments.Enchantment;
+import daybreak.abilitywar.utils.library.item.EnchantLib;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -114,7 +114,7 @@ public class GameModeGUI implements Listener {
 		for (int i = 0; i < categories.length; i++) {
 			final GameCategory gameCategory = categories[i];
 			final ItemStack stack = new ItemStack(gameCategory.getIcon());
-			if (category.equals(gameCategory)) stack.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+			if (category.equals(gameCategory)) stack.addUnsafeEnchantment(EnchantLib.DURABILITY.getEnchantment(), 1);
 			final ItemMeta meta = stack.getItemMeta();
 			meta.setDisplayName(ChatColor.WHITE + gameCategory.getDisplayName());
 			stack.setItemMeta(meta);

@@ -12,7 +12,7 @@ import daybreak.abilitywar.utils.base.concurrent.TimeUnit;
 import daybreak.abilitywar.utils.base.minecraft.nms.NMS;
 import daybreak.abilitywar.utils.library.SoundLib;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 
 @AbilityManifest(name = "제논", rank = Rank.S, species = Species.HUMAN, explain = {
         "§7패시브 §f- §3혈청 ✕§f: 매 12초마다 투여해 최대 체력의 50%만큼 §e흡수 체력§f을",
@@ -91,7 +91,7 @@ public class Xenon extends AbilityBase implements ActiveHandler {
         }
 
         private float getMaxAbsorptionHearts() {
-            final double maxHealth = getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+            final double maxHealth = getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue();
             final float max = (float) (maxHealth * .4);
             return overdose > 0 ? (max / 2) : max;
         }

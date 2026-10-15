@@ -130,10 +130,10 @@ public class PenetrationSniper extends Synergy {
 		if (getPlayer().equals(e.getEntity()) && e.getProjectile() instanceof Arrow) {
 			e.setCancelled(true);
 			if (reload == null) {
-				if (!getPlayer().getGameMode().equals(GameMode.CREATIVE) && (!e.getBow().hasItemMeta() || !e.getBow().getItemMeta().hasEnchant(Enchantment.ARROW_INFINITE))) {
+				if (!getPlayer().getGameMode().equals(GameMode.CREATIVE) && (!e.getBow().hasItemMeta() || !e.getBow().getItemMeta().hasEnchant(EnchantLib.ARROW_INFINITE.getEnchantment()))) {
 					ItemLib.removeItem(getPlayer().getInventory(), Material.ARROW, 1);
 				}
-				arrowType.launchArrow((Arrow) e.getProjectile(), e.getBow().getEnchantmentLevel(Enchantment.ARROW_DAMAGE));
+				arrowType.launchArrow((Arrow) e.getProjectile(), e.getBow().getEnchantmentLevel(EnchantLib.ARROW_DAMAGE.getEnchantment()));
 				SoundLib.ENTITY_GENERIC_EXPLODE.playSound(getPlayer().getLocation(), 7, 1.75f);
 				final int reloadCount = Wreck.isEnabled(GameManager.getGame()) ? (int) (Wreck.calculateDecreasedAmount(20) * 25.0) : 25;
 				this.reload = new AbilityTimer(reloadCount) {

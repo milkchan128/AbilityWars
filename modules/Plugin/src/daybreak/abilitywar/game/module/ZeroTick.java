@@ -2,6 +2,7 @@ package daybreak.abilitywar.game.module;
 
 import daybreak.abilitywar.game.AbstractGame;
 import daybreak.abilitywar.game.AbstractGame.Participant;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
@@ -32,9 +33,9 @@ public final class ZeroTick implements ListenerModule {
 	private final Map<LivingEntity, Integer> entities;
 
 	private void addModifier(final Player player) {
-		addModifier0(player, Attribute.GENERIC_ATTACK_SPEED, PLUS_FIVE);
-		addModifier0(player, Attribute.GENERIC_ATTACK_DAMAGE, MINUS_SCALAR);
-		addModifier0(player, Attribute.GENERIC_KNOCKBACK_RESISTANCE, PLUS_POINT_ONE);
+		addModifier0(player, AttributeX.GENERIC_ATTACK_SPEED, PLUS_FIVE);
+		addModifier0(player, AttributeX.GENERIC_ATTACK_DAMAGE, MINUS_SCALAR);
+		addModifier0(player, AttributeX.GENERIC_KNOCKBACK_RESISTANCE, PLUS_POINT_ONE);
 	}
 
 	private void addModifier0(final Player player, final Attribute attribute, final AttributeModifier modifier) {
@@ -44,9 +45,9 @@ public final class ZeroTick implements ListenerModule {
 	}
 
 	private void removeModifier(final LivingEntity livingEntity) {
-		livingEntity.getAttribute(Attribute.GENERIC_ATTACK_SPEED).removeModifier(PLUS_FIVE);
-		livingEntity.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).removeModifier(MINUS_SCALAR);
-		livingEntity.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).removeModifier(PLUS_POINT_ONE);
+		livingEntity.getAttribute(AttributeX.GENERIC_ATTACK_SPEED).removeModifier(PLUS_FIVE);
+		livingEntity.getAttribute(AttributeX.GENERIC_ATTACK_DAMAGE).removeModifier(MINUS_SCALAR);
+		livingEntity.getAttribute(AttributeX.GENERIC_KNOCKBACK_RESISTANCE).removeModifier(PLUS_POINT_ONE);
 	}
 
 	public ZeroTick(AbstractGame game) {

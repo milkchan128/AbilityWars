@@ -24,7 +24,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -193,7 +193,7 @@ public class Bless extends Synergy implements ActiveHandler {
 				final EntityRegainHealthEvent event = new EntityRegainHealthEvent(getPlayer(), amount, EntityRegainHealthEvent.RegainReason.CUSTOM);
 				Bukkit.getPluginManager().callEvent(event);
 				if (!event.isCancelled()) {
-					final double maxHealth = getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+					final double maxHealth = getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue();
 					final double empty = maxHealth - getPlayer().getHealth();
 					if (empty >= event.getAmount()) {
 						getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + event.getAmount(), 0, maxHealth));

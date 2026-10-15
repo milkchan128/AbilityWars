@@ -27,7 +27,7 @@ import daybreak.abilitywar.utils.library.SoundLib;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -291,10 +291,10 @@ public class GrapplingHook extends AbilityBase implements ActiveHandler {
             SoundLib.ENTITY_PLAYER_ATTACK_KNOCKBACK.playSound(getPlayer());
             SoundLib.ENTITY_PLAYER_HURT.playSound(getPlayer());
             if (attacked.add(player.getUniqueId())) {
-                player.damage(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * .45, getPlayer());
+                player.damage(player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue() * .45, getPlayer());
                 Stun.apply(getGame().getParticipant(player), TimeUnit.TICKS, weaken ? 15 : 45);
             } else {
-                player.damage(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * .3, getPlayer());
+                player.damage(player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue() * .3, getPlayer());
                 Stun.apply(getGame().getParticipant(player), TimeUnit.TICKS, weaken ? 7 : 35);
             }
             new AbilityTimer(40) {

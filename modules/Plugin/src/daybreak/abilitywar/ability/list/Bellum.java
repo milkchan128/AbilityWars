@@ -43,7 +43,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import daybreak.abilitywar.utils.library.PotionEffects;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
@@ -168,7 +168,7 @@ public class Bellum extends AbilityBase implements ActiveHandler {
             if (getPlayer().isOnGround()) {
                 getPlayer().setVelocity(getPlayer().getLocation().getDirection().setY(0).normalize().multiply(1));
             }
-            getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 2, 2, false, false));
+            getPlayer().addPotionEffect(new PotionEffect(PotionEffects.SLOW.getEffectType(), 2, 2, false, false));
             final Location playerLocation = getPlayer().getLocation();
             final Vector direction = playerLocation.getDirection().setY(0).normalize();
             if (isBlockObstructing()) {

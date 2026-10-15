@@ -14,7 +14,7 @@ import daybreak.abilitywar.utils.base.minecraft.nms.NMS;
 import kotlin.ranges.RangesKt;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -106,7 +106,7 @@ public class Sleep extends AbstractGame.Effect implements Listener {
 			final EntityRegainHealthEvent event = new EntityRegainHealthEvent(player, healAmount, RegainReason.CUSTOM);
 			Bukkit.getPluginManager().callEvent(event);
 			if (!event.isCancelled()) {
-				player.setHealth(RangesKt.coerceIn(player.getHealth() + event.getAmount(), 0, player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				player.setHealth(RangesKt.coerceIn(player.getHealth() + event.getAmount(), 0, player.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			}
 		}
 		if (hologram.isValid()) {

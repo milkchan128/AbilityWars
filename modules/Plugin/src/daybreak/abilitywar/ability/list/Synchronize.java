@@ -19,7 +19,7 @@ import daybreak.abilitywar.utils.base.math.LocationUtil;
 import daybreak.abilitywar.utils.base.math.geometry.Line;
 import daybreak.abilitywar.utils.library.ParticleLib;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -181,9 +181,9 @@ public class Synchronize extends AbilityBase implements ActiveHandler {
 			onSilentEnd();
 			if (target.isDead()) return;
 			if (flag) {
-				target.setHealth(Math.min(target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue(), Math.max(1, target.getHealth() + amount)));
+				target.setHealth(Math.min(target.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue(), Math.max(1, target.getHealth() + amount)));
 			} else {
-				target.setHealth(Math.min(target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue(), Math.max(1, target.getHealth() - amount)));
+				target.setHealth(Math.min(target.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue(), Math.max(1, target.getHealth() - amount)));
 			}
 		}
 

@@ -30,7 +30,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Note.Tone;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -190,8 +190,8 @@ public class VictoryBySword extends AbilityBase implements TargetHandler {
 			}
 			this.health = getPlayer().getHealth();
 			this.targetHealth = target.getHealth();
-			getPlayer().setHealth(getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-			target.setHealth(target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+			getPlayer().setHealth(getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue());
+			target.setHealth(target.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue());
 			setPeriod(TimeUnit.TICKS, 1);
 		}
 
@@ -278,7 +278,7 @@ public class VictoryBySword extends AbilityBase implements TargetHandler {
 					Player entityPlayer = (Player) entity;
 					e.setCancelled(false);
 					e.setDamage(e.getDamage() / 2);
-					SoundLib.PIANO.playInstrument(damager.equals(getPlayer()) ? getPlayer() : target, notes.get(Math.max(1, Math.min(9, (int) ((entityPlayer.getHealth() / entityPlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) * 10)))));
+					SoundLib.PIANO.playInstrument(damager.equals(getPlayer()) ? getPlayer() : target, notes.get(Math.max(1, Math.min(9, (int) ((entityPlayer.getHealth() / entityPlayer.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()) * 10)))));
 				} else {
 					e.setCancelled(true);
 					if (damager instanceof Player) damager.sendMessage(ChatColor.RED + "진검승부 중인 상대를 공격할 수 없습니다!");
@@ -355,10 +355,10 @@ public class VictoryBySword extends AbilityBase implements TargetHandler {
 				restrictCondition.getAbility().setRestricted(false);
 			}
 			if (!target.isDead()) {
-				target.setHealth(Math.min(targetHealth, target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				target.setHealth(Math.min(targetHealth, target.getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			}
 			if (!getPlayer().isDead()) {
-				getPlayer().setHealth(Math.min(health, getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+				getPlayer().setHealth(Math.min(health, getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 			}
 			unregister();
 			ring = null;

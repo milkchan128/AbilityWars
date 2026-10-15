@@ -27,7 +27,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Note;
-import org.bukkit.attribute.Attribute;
+import daybreak.abilitywar.utils.base.minecraft.entity.AttributeX;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -201,7 +201,7 @@ public class Vampire extends AbilityBase implements ActiveHandler {
 					final EntityRegainHealthEvent event = new EntityRegainHealthEvent(getPlayer(), blood, RegainReason.CUSTOM);
 					Bukkit.getPluginManager().callEvent(event);
 					if (!event.isCancelled()) {
-						getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + event.getAmount(), 0, getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+						getPlayer().setHealth(RangesKt.coerceIn(getPlayer().getHealth() + event.getAmount(), 0, getPlayer().getAttribute(AttributeX.GENERIC_MAX_HEALTH).getValue()));
 					}
 				}
 				blood = 0;
